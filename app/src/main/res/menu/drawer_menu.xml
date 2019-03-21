@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- This allows you to show which list item is currently selected. -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_item_random"
+            android:icon="@drawable/ic_photo_filter_black_24dp"
+            android:title="@string/drawer_menu_random"
+            android:checked="true"/>
+        <item
+            android:id="@+id/drawer_item_curated"
+            android:icon="@drawable/ic_camera_alt_black_24dp"
+            android:title="@string/drawer_menu_curated" />
+        <item
+            android:id="@+id/drawer_item_item2"
+            android:icon="@drawable/ic_camera_alt_black_24dp"
+            android:title="@string/drawer_menu_item2" />
+        <item
+            android:id="@+id/drawer_item_item3"
+            android:icon="@drawable/ic_camera_alt_black_24dp"
+            android:title="@string/drawer_menu_item3" />
+    </group>
+
+</menu>

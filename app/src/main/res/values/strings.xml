@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Andsplash</string>
+    <string name="err_msg">Something went wrong!</string>
+
+    <string name="drawer_menu_random">Random</string>
+    <string name="drawer_menu_curated">Curated</string>
+    <string name="drawer_menu_item2">Item 2</string>
+    <string name="drawer_menu_item3">Item 3</string>
+
+    <string name="drawer_header_title">My header title</string>
+
+    <!-- Unsplash -->
+    <string name="unsplash_url">https://api.unsplash.com</string>
+    <string name="unsplash_collection_default">/collections</string>
+    <string name="unsplash_collection_curated">/collections/curated</string>
+
+</resources>
