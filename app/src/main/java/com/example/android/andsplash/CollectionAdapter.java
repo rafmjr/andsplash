@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;
@@ -48,19 +47,15 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Co
 
     class CollectionsViewHolder extends RecyclerView.ViewHolder implements Response.Listener<Bitmap> {
         private ImageView mCoverView;
-        private TextView mTitleView;
         private Context mContext;
 
         CollectionsViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            mCoverView = itemView.findViewById(R.id.collection_cover_iv);
-            mTitleView = itemView.findViewById(R.id.collection_title_tv);
             mContext = itemView.getContext();
+            mCoverView = itemView.findViewById(R.id.collection_cover_iv);
         }
 
         void bind(UnsplashCollection collection) {
-            mTitleView.setText(collection.getTitle());
             String coverURL = collection.getCoverURL();
             ImageRequest imageRequest = new ImageRequest(
                     coverURL,

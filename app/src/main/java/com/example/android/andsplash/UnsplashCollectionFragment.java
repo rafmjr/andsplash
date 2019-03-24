@@ -86,7 +86,7 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
     public void initRecyclerView() {
         mAdapter = new CollectionAdapter(null);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
     public void setEndpointFromArguments() {
