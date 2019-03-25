@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        showCollection(getString(R.string.unsplash_collection_default));
+        showCollection(getString(R.string.collection_default));
     }
 
     @Override
@@ -73,11 +73,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.drawer_item_random:
-                showCollection(getString(R.string.unsplash_collection_default));
+            case R.id.drawer_item_nature:
+                showCollection(getString(R.string.collection_nature));
                 break;
-            case R.id.drawer_item_curated:
-                showCollection(getString(R.string.unsplash_collection_curated));
+            case R.id.drawer_item_people:
+                showCollection(getString(R.string.collection_people));
+                break;
+            case R.id.drawer_item_animals:
+                showCollection(getString(R.string.collection_animals));
+                break;
+            case R.id.drawer_item_textures:
+                showCollection(getString(R.string.collection_textures));
                 break;
             default:
                 Toast.makeText(this, menuItem.getTitle(), Toast.LENGTH_SHORT).show();
@@ -105,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showCollection(String endPoint) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Fragment fragment = UnsplashCollectionFragment.newInstance(endPoint);
+        Fragment fragment = CollectionFragment.newInstance(endPoint);
 
         transaction.replace(R.id.collection_fragment, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -142,15 +148,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         return File.createTempFile(fileName, ".jpg", storageDir);
-    }
-
-    private void addPictureToGallery(String filePath) {
-        File file = new File(filePath);
-        Uri contentUri = Uri.fromFile(file);
-
-        Intent mediaScannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScannerIntent.setData(contentUri);
-
-        sendBroadcast(mediaScannerIntent);
     }
 }

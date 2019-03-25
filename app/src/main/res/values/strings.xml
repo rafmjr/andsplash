@@ -2,16 +2,20 @@
     <string name="app_name">Andsplash</string>
     <string name="err_msg">Something went wrong!</string>
 
-    <string name="drawer_menu_random">Random</string>
-    <string name="drawer_menu_curated">Curated</string>
-    <string name="drawer_menu_item2">Item 2</string>
-    <string name="drawer_menu_item3">Item 3</string>
+    <!-- Drawer -->
+    <string name="drawer_header_title">John Doe</string>
+    <string name="drawer_menu_nature">Nature</string>
+    <string name="drawer_menu_people">People</string>
+    <string name="drawer_menu_textures">Textures</string>
+    <string name="drawer_menu_animals">Animals</string>
+    <string name="drawer_menu_personal">My Photos</string>
 
-    <string name="drawer_header_title">My header title</string>
-
-    <!-- Unsplash -->
-    <string name="unsplash_url">https://api.unsplash.com</string>
-    <string name="unsplash_collection_default">/collections</string>
-    <string name="unsplash_collection_curated">/collections/curated</string>
+    <!-- Unsplash Collections -->
+    <string name="api_endpoint">api.unsplash.com</string>
+    <string name="collection_default">@string/collection_nature</string>
+    <string name="collection_nature">nature</string>
+    <string name="collection_people">people</string>
+    <string name="collection_textures">textures</string>
+    <string name="collection_animals">animals</string>
 
 </resources>

@@ -4,22 +4,26 @@
     <!-- This allows you to show which list item is currently selected. -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_item_random"
-            android:icon="@drawable/ic_photo_filter_black_24dp"
-            android:title="@string/drawer_menu_random"
+            android:id="@+id/drawer_item_nature"
+            android:icon="@drawable/ic_landscape_black_24dp"
+            android:title="@string/drawer_menu_nature"
             android:checked="true"/>
         <item
-            android:id="@+id/drawer_item_curated"
-            android:icon="@drawable/ic_camera_alt_black_24dp"
-            android:title="@string/drawer_menu_curated" />
+            android:id="@+id/drawer_item_people"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="@string/drawer_menu_people" />
         <item
-            android:id="@+id/drawer_item_item2"
-            android:icon="@drawable/ic_camera_alt_black_24dp"
-            android:title="@string/drawer_menu_item2" />
+            android:id="@+id/drawer_item_textures"
+            android:icon="@drawable/ic_casino_black_24dp"
+            android:title="@string/drawer_menu_textures" />
         <item
-            android:id="@+id/drawer_item_item3"
-            android:icon="@drawable/ic_camera_alt_black_24dp"
-            android:title="@string/drawer_menu_item3" />
+            android:id="@+id/drawer_item_animals"
+            android:icon="@drawable/ic_pets_black_24dp"
+            android:title="@string/drawer_menu_animals" />
+        <item
+            android:id="@+id/drawer_item_personal"
+            android:icon="@drawable/ic_collections_black_24dp"
+            android:title="@string/drawer_menu_personal" />
     </group>
 
 </menu>

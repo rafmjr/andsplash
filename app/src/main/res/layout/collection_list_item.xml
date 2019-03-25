@@ -9,7 +9,8 @@
         android:id="@+id/collection_cover_iv"
         android:layout_width="match_parent"
         android:layout_height="275dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:contentDescription="@android:string/untitled"/>
+        android:contentDescription="@android:string/untitled"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </LinearLayout>

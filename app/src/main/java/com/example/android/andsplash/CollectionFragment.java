@@ -1,12 +1,12 @@
 package com.example.android.andsplash;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +16,21 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-public class UnsplashCollectionFragment extends Fragment implements Response.Listener<JSONArray>,
+import java.net.URI;
+import java.net.URL;
+
+public class CollectionFragment extends Fragment implements Response.Listener<JSONObject>,
     Response.ErrorListener {
 
-    private static final String ARG_UNSPLASH_COLLECTION = "collection";
+    private static final String ARG_QUERY_TERM = "collection";
 
     private RecyclerView mRecyclerView;
     private CollectionAdapter mAdapter;
@@ -32,12 +38,11 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
     private TextView mErrorTextView;
 
     private String mUrl;
-    private String mEndpoint;
 
-    public static UnsplashCollectionFragment newInstance(String endPoint) {
-        UnsplashCollectionFragment instance = new UnsplashCollectionFragment();
+    public static CollectionFragment newInstance(String endPoint) {
+        CollectionFragment instance = new CollectionFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_UNSPLASH_COLLECTION, endPoint);
+        bundle.putString(ARG_QUERY_TERM, endPoint);
         instance.setArguments(bundle);
         return instance;
     }
@@ -50,12 +55,16 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
         mRecyclerView = view.findViewById(R.id.collection_rv);
         mErrorTextView = view.findViewById(R.id.error_tv);
 
-        // Initialize RecyclerView
-        initRecyclerView();
-        // Define api endpoint from which the images will come
-        setEndpointFromArguments();
-        // Fetch Collections
-        fetchCollections();
+        try {
+            // Define api endpoint from which the images will come
+            setEndpointFromArguments();
+            // Initialize RecyclerView
+            initRecyclerView();
+            // Fetch Collections
+            fetchCollections();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
 
         return view;
     }
@@ -67,7 +76,7 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
     }
 
     @Override
-    public void onResponse(JSONArray response) {
+    public void onResponse(JSONObject response) {
         hideProgressBar();
 
         if (response.length() == 0) {
@@ -89,19 +98,30 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
-    public void setEndpointFromArguments() {
-        mEndpoint = getString(R.string.unsplash_collection_default);
+    public void setEndpointFromArguments() throws Exception {
         Bundle arguments = getArguments();
-        if (arguments != null) {
-            mEndpoint = arguments.getString(ARG_UNSPLASH_COLLECTION);
+        if (arguments == null) {
+            throw new Exception("Fragment started without setting arguments");
         }
-        mUrl = getString(R.string.unsplash_url) + mEndpoint;
+
+        String mEndpoint = arguments.getString(ARG_QUERY_TERM);
+        Uri unsplashUri = new Uri.Builder()
+                .scheme("https")
+                .authority(getString(R.string.api_endpoint))
+                .appendPath("search")
+                .appendPath("photos")
+                .appendQueryParameter("query", mEndpoint)
+                .appendQueryParameter("orientation", "portrait")
+                .build();
+
+        mUrl = unsplashUri.toString();
     }
 
     public void fetchCollections() {
         Context context = getContext();
-        JsonArrayRequest jsonObjectRequest = new UnsplashCollectionRequest(
+        UnsplashCollectionRequest jsonObjectRequest = new UnsplashCollectionRequest(
                 mUrl,
+                null,
                 this,
                 this,
                 context
@@ -109,11 +129,14 @@ public class UnsplashCollectionFragment extends Fragment implements Response.Lis
         StaticRequestQueue.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
-    public UnsplashCollection[] getCollectionArrayFromResponse(JSONArray response) throws JSONException {
-        UnsplashCollection[] collections = new UnsplashCollection[response.length()];
+    public UnsplashCollection[] getCollectionArrayFromResponse(JSONObject response) throws JSONException {
+        JSONArray results = response.getJSONArray("results");
+
+        UnsplashCollection[] collections = new UnsplashCollection[results.length()];
         for (int i = 0; i < collections.length; i++) {
-            collections[i] = new UnsplashCollection(response.getJSONObject(i));
+            collections[i] = new UnsplashCollection(results.getJSONObject(i));
         }
+
         return collections;
     }
 

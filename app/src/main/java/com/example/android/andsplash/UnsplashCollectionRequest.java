@@ -6,19 +6,21 @@ import android.support.annotation.Nullable;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnsplashCollectionRequest extends JsonArrayRequest {
+public class UnsplashCollectionRequest extends JsonObjectRequest {
 
     private Context mContext;
 
-    UnsplashCollectionRequest(String url, Response.Listener<JSONArray> listener, @Nullable Response.ErrorListener errorListener, Context context) {
-        super(url, listener, errorListener);
-        mContext = context;
+    public UnsplashCollectionRequest(String url, @Nullable JSONObject jsonRequest, Response.Listener<JSONObject> listener, @Nullable Response.ErrorListener errorListener, Context mContext) {
+        super(url, jsonRequest, listener, errorListener);
+        this.mContext = mContext;
     }
 
     @Override

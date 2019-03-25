@@ -4,20 +4,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class UnsplashCollection {
-    private String title;
+    private String description;
     private String coverURL;
 
     UnsplashCollection(JSONObject payload) throws JSONException {
-        title = payload.getString("title");
-        coverURL = payload.getJSONObject("cover_photo")
-                .getJSONObject("urls")
-                .getString("regular");
+        description = payload.getString("description");
+        coverURL = payload.getJSONObject("urls").getString("regular");
     }
 
-    String getTitle() {
-        return title;
-    }
-
+    String getDescription() { return description; }
     String getCoverURL() {
         return coverURL;
     }
